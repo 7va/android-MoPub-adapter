@@ -7,8 +7,10 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
-import com.dispply.lib.sdk.nativeads.Ad;
-import com.dispply.lib.sdk.nativeads.AdListener;
+
+import com.hyperadx.lib.sdk.nativeads.Ad;
+import com.hyperadx.lib.sdk.nativeads.AdListener;
+import com.hyperadx.lib.sdk.nativeads.HADNativeAd;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -24,7 +26,7 @@ public class DispplyNativeMopub extends CustomEventNative {
     private static final String PLACEMENT_KEY = "PLACEMENT";
 
 
-    com.dispply.lib.sdk.nativeads.NativeAd nativeAd;
+    com.hyperadx.lib.sdk.nativeads.HADNativeAd nativeAd;
 
     @Override
     protected void loadNativeAd(final @NonNull Activity activity, final @NonNull CustomEventNativeListener customEventNativeListener, @NonNull Map<String, Object> localExtras, @NonNull Map<String, String> serverExtras) {
@@ -37,8 +39,8 @@ public class DispplyNativeMopub extends CustomEventNative {
             return;
         }
 
-        nativeAd = new com.dispply.lib.sdk.nativeads.NativeAd(activity, placement); //Native AD constructor
-
+        nativeAd = new com.hyperadx.lib.sdk.nativeads.HADNativeAd(activity, placement); //Native AD constructor
+        nativeAd.setContent("title,icon,description");
 
         nativeAd.setAdListener(new AdListener() { // Add Listeners
 
@@ -71,12 +73,12 @@ public class DispplyNativeMopub extends CustomEventNative {
     class DispplyNativeAd extends StaticNativeAd {
 
         final Ad dispplyModel;
-        final com.dispply.lib.sdk.nativeads.NativeAd nativeAd;
+        final com.hyperadx.lib.sdk.nativeads.HADNativeAd nativeAd;
         final ImpressionTracker impressionTracker;
         final NativeClickHandler nativeClickHandler;
         final Activity activity;
 
-        public DispplyNativeAd(@NonNull Ad customModel, com.dispply.lib.sdk.nativeads.NativeAd nativeAd, Activity activity) {
+        public DispplyNativeAd(@NonNull Ad customModel, HADNativeAd nativeAd, Activity activity) {
 
             dispplyModel = customModel;
             this.nativeAd = nativeAd;
@@ -127,7 +129,7 @@ public class DispplyNativeMopub extends CustomEventNative {
             String userAgent;
 
             public LoadUrlTask() {
-                userAgent = com.dispply.lib.sdk.Util.getDefaultUserAgentString(activity);
+                userAgent = com.hyperadx.lib.sdk.Util.getDefaultUserAgentString(activity);
             }
 
             @Override
@@ -139,7 +141,7 @@ public class DispplyNativeMopub extends CustomEventNative {
                 } catch (MalformedURLException e) {
                     return (loadingUrl != null) ? loadingUrl : "";
                 }
-                com.dispply.lib.sdk.Log.d("Checking URL redirect:" + loadingUrl);
+                com.hyperadx.lib.sdk.HADLog.d("Checking URL redirect:" + loadingUrl);
 
                 int statusCode = -1;
                 HttpURLConnection connection = null;
@@ -163,7 +165,7 @@ public class DispplyNativeMopub extends CustomEventNative {
                             nextLocation = connection.getHeaderField("location");
                             connection.disconnect();
                             if (!redirectLocations.add(nextLocation)) {
-                                com.dispply.lib.sdk.Log.d("URL redirect cycle detected");
+                                com.hyperadx.lib.sdk.HADLog.d("URL redirect cycle detected");
                                 return "";
                             }
 

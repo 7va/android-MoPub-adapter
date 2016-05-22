@@ -1,61 +1,67 @@
 package com.dispply.mopubdemo;
 
-import android.app.ListActivity;
-import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
+import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
-import com.mopub.nativeads.MoPubAdAdapter;
-import com.mopub.nativeads.MoPubNativeAdPositioning;
-import com.mopub.nativeads.MoPubStaticNativeAdRenderer;
-import com.mopub.nativeads.ViewBinder;
+import com.mopub.mobileads.MoPubErrorCode;
+import com.mopub.mobileads.MoPubInterstitial;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+public class MainActivity extends AppCompatActivity implements MoPubInterstitial.InterstitialAdListener {
 
-public class MainActivity extends ListActivity {
-
-    MoPubAdAdapter mAdAdapter;
+    MoPubInterstitial mInterstitial;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        loadInterstitial();
+    }
 
-        // Set up your adapter as usual.
-        List<String> data = new ArrayList<>(Arrays.asList("Afghanistan", "Bangladesh", "Cambodia", "Denmark", "Egypt", "Fiji", "Germany", "Honduras", "India", "Japan", "Kenya", "Latvia", "Madagascar", "Nepal", "Philippines", "Qatar", "Russia", "Somalia", "Tibet", "United Kingdom", "Vietnam", "Yemen", "Zaire"));
-        CustomAdapter myAdapter = new CustomAdapter(this, data);
+    private void loadInterstitial() {
+        mInterstitial = new MoPubInterstitial(this, getString(R.string.mopub_interstitial_ad_unit_id));
+        mInterstitial.setInterstitialAdListener(this);
+        mInterstitial.load();
+    }
 
-        // Set up a ViewBinder and MoPubNativeAdRenderer as above.
-        ViewBinder viewBinder = new ViewBinder.Builder(R.layout.native_list_item_layout)
-                .iconImageId(R.id.native_icon)
-                .titleId(R.id.native_title)
-                .textId(R.id.native_text)
-                .build();
+    public void showNativeAd(View view) {
+        Intent intent = new Intent(this, NativeAdActivity.class);
+        startActivity(intent);
+    }
 
-        // Set up the positioning behavior your ads should have.
-        MoPubNativeAdPositioning.MoPubServerPositioning adPositioning =
-                MoPubNativeAdPositioning.serverPositioning();
-        MoPubStaticNativeAdRenderer adRenderer = new MoPubStaticNativeAdRenderer(viewBinder);
+    public void showInterstitialAd(View view) {
 
-        // Set up the MoPubAdAdapter
-        mAdAdapter = new MoPubAdAdapter(this, myAdapter, adPositioning);
-        mAdAdapter.registerAdRenderer(adRenderer);
+        if (mInterstitial != null) mInterstitial.show();
+        else
+            Toast.makeText(this, "The Interstitial AD not ready yet. Try again!", Toast.LENGTH_LONG).show();
 
-        setListAdapter(mAdAdapter);
     }
 
     @Override
-    public void onResume() {
-        mAdAdapter.loadAds(getString(R.string.mopub_native_ad_unit_id));
-        super.onResume();
+    public void onInterstitialLoaded(MoPubInterstitial interstitial) {
+
     }
 
-    class CustomAdapter extends ArrayAdapter<String> {
+    @Override
+    public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
+        Log.e("TAG", errorCode.name());
+    }
 
-        public CustomAdapter(Context context, List<String> data) {
-            super(context, android.R.layout.simple_list_item_1, data);
-        }
+    @Override
+    public void onInterstitialShown(MoPubInterstitial interstitial) {
+
+    }
+
+    @Override
+    public void onInterstitialClicked(MoPubInterstitial interstitial) {
+
+    }
+
+    @Override
+    public void onInterstitialDismissed(MoPubInterstitial interstitial) {
 
     }
 }
