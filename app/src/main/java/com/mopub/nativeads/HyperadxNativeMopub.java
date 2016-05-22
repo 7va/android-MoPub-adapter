@@ -1,17 +1,13 @@
 package com.mopub.nativeads;
 
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
-
-
 import com.hyperadx.lib.sdk.nativeads.Ad;
 import com.hyperadx.lib.sdk.nativeads.AdListener;
 import com.hyperadx.lib.sdk.nativeads.HADNativeAd;
-
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -21,7 +17,7 @@ import java.util.Map;
 import java.util.Set;
 
 
-public class DispplyNativeMopub extends CustomEventNative {
+public class HyperadxNativeMopub extends CustomEventNative {
 
     private static final String PLACEMENT_KEY = "PLACEMENT";
 
@@ -47,7 +43,7 @@ public class DispplyNativeMopub extends CustomEventNative {
             @Override
             public void onAdLoaded(Ad ad) {
 
-                customEventNativeListener.onNativeAdLoaded(new DispplyNativeAd(ad, nativeAd, activity));
+                customEventNativeListener.onNativeAdLoaded(new HyperadxNativeAd(ad, nativeAd, activity));
 
 
             }
@@ -70,31 +66,31 @@ public class DispplyNativeMopub extends CustomEventNative {
     }
 
 
-    class DispplyNativeAd extends StaticNativeAd {
+    class HyperadxNativeAd extends StaticNativeAd {
 
-        final Ad dispplyModel;
+        final Ad hadModel;
         final com.hyperadx.lib.sdk.nativeads.HADNativeAd nativeAd;
         final ImpressionTracker impressionTracker;
         final NativeClickHandler nativeClickHandler;
         final Activity activity;
 
-        public DispplyNativeAd(@NonNull Ad customModel, HADNativeAd nativeAd, Activity activity) {
+        public HyperadxNativeAd(@NonNull Ad customModel, HADNativeAd nativeAd, Activity activity) {
 
-            dispplyModel = customModel;
+            hadModel = customModel;
             this.nativeAd = nativeAd;
             this.activity = activity;
             impressionTracker = new ImpressionTracker(activity);
             nativeClickHandler = new NativeClickHandler(activity);
 
-            setIconImageUrl(dispplyModel.getIcon_url());
-            setMainImageUrl(dispplyModel.getImage_url());
+            setIconImageUrl(hadModel.getIcon_url());
+            setMainImageUrl(hadModel.getImage_url());
 
-            setTitle(dispplyModel.getTitle());
-            setText(dispplyModel.getDescription());
+            setTitle(hadModel.getTitle());
+            setText(hadModel.getDescription());
 
-            setClickDestinationUrl(dispplyModel.getClickUrl());
+            setClickDestinationUrl(hadModel.getClickUrl());
 
-            for (Ad.Tracker tracker : dispplyModel.getTrackers())
+            for (Ad.Tracker tracker : hadModel.getTrackers())
                 if (tracker.getType().equals("impression")) {
                     addImpressionTracker(tracker.getUrl());
                 }
@@ -110,7 +106,7 @@ public class DispplyNativeMopub extends CustomEventNative {
         @Override
         public void recordImpression(final View view) {
             notifyAdImpressed();
-            for (Ad.Tracker tracker : dispplyModel.getTrackers())
+            for (Ad.Tracker tracker : hadModel.getTrackers())
                 if (tracker.getType().equals("impression")) {
                     new LoadUrlTask().execute(tracker.getUrl());
                 }
@@ -120,8 +116,8 @@ public class DispplyNativeMopub extends CustomEventNative {
         public void handleClick(final View view) {
             notifyAdClicked();
             nativeClickHandler.openClickDestinationUrl(getClickDestinationUrl(), view);
-            if (dispplyModel.getClickUrl() != null)
-                new LoadUrlTask().execute(dispplyModel.getClickUrl());
+            if (hadModel.getClickUrl() != null)
+                new LoadUrlTask().execute(hadModel.getClickUrl());
         }
 
         private class LoadUrlTask extends AsyncTask<String, Void, String> {

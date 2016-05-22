@@ -1,10 +1,7 @@
 package com.mopub.mobileads;
 
-
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
-
 import com.hyperadx.lib.sdk.interstitialads.HADInterstitialAd;
 import com.hyperadx.lib.sdk.interstitialads.InterstitialAdListener;
 
@@ -24,7 +21,6 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
     @Override
     protected void loadInterstitial(final Context context, final CustomEventInterstitialListener customEventInterstitialListener, Map<String, Object> localExtras, Map<String, String> serverExtras) {
 
-        Log.wtf("TAG", "hello from loadInterstitial");
 
         final String placement;
         final String appId;
@@ -36,7 +32,6 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
             return;
         }
 
-        Log.wtf("TAG", "placement=" + placement);
 
         interstitialAd = new HADInterstitialAd(context, placement); //Interstitial AD constructor
         interstitialAd.setAdListener(new InterstitialAdListener() { // Set Listener
