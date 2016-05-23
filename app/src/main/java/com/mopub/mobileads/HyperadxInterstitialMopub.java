@@ -2,6 +2,7 @@ package com.mopub.mobileads;
 
 import android.content.Context;
 import android.util.Log;
+
 import com.hyperadx.lib.sdk.interstitialads.HADInterstitialAd;
 import com.hyperadx.lib.sdk.interstitialads.InterstitialAdListener;
 
@@ -21,9 +22,8 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
     @Override
     protected void loadInterstitial(final Context context, final CustomEventInterstitialListener customEventInterstitialListener, Map<String, Object> localExtras, Map<String, String> serverExtras) {
 
-
         final String placement;
-        final String appId;
+
         if (serverExtras != null && serverExtras.containsKey(PLACEMENT_KEY)) {
             placement = serverExtras.get(PLACEMENT_KEY);
 
