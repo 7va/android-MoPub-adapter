@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DispplyMoPubAdapter.iml" filepath="$PROJECT_DIR$/DispplyMoPubAdapter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HyperADxMoPubAdapter.iml" filepath="$PROJECT_DIR$/HyperADxMoPubAdapter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

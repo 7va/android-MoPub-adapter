@@ -1,4 +1,4 @@
-package com.dispply.mopubdemo;
+package com.hyperadx.mopubdemo;
 
 import org.junit.Test;
 

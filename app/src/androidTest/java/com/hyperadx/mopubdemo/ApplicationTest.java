@@ -1,4 +1,4 @@
-package com.dispply.mopubdemo;
+package com.hyperadx.mopubdemo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
