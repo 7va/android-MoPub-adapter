@@ -5,16 +5,23 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
+
 import com.hyperadx.lib.sdk.nativeads.Ad;
 import com.hyperadx.lib.sdk.nativeads.AdListener;
 import com.hyperadx.lib.sdk.nativeads.HADNativeAd;
+import com.mopub.mobileads.MoPubErrorCode;
+
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import static com.mopub.nativeads.NativeImageHelper.preCacheImages;
 
 
 public class HyperadxNativeMopub extends CustomEventNative {
@@ -41,10 +48,31 @@ public class HyperadxNativeMopub extends CustomEventNative {
         nativeAd.setAdListener(new AdListener() { // Add Listeners
 
             @Override
-            public void onAdLoaded(Ad ad) {
+            public void onAdLoaded(final Ad ad) {
 
-                customEventNativeListener.onNativeAdLoaded(new HyperadxNativeAd(ad, nativeAd, activity));
+                //   customEventNativeListener.onNativeAdLoaded(new HyperadxNativeAd(ad, nativeAd, activity));
 
+                List<String> imageUrls = new ArrayList<String>();
+
+                if (isValidURL(ad.getImage_url()))
+                    imageUrls.add(ad.getImage_url());
+
+
+                if (isValidURL(ad.getIcon_url()))
+                    imageUrls.add(ad.getIcon_url());
+
+
+                preCacheImages(activity, imageUrls, new NativeImageHelper.ImageListener() {
+                    @Override
+                    public void onImagesCached() {
+                        customEventNativeListener.onNativeAdLoaded(new HyperadxNativeAd(ad, nativeAd, activity));
+                    }
+
+                    @Override
+                    public void onImagesFailedToCache(NativeErrorCode errorCode) {
+                        customEventNativeListener.onNativeAdFailed(NativeErrorCode.EMPTY_AD_RESPONSE);
+                    }
+                });
 
             }
 
@@ -187,6 +215,18 @@ public class HyperadxNativeMopub extends CustomEventNative {
             }
         }
 
+    }
+
+    public boolean isValidURL(String urlStr) {
+
+        if (urlStr == null) return false;
+
+        try {
+            URL url = new URL(urlStr);
+            return true;
+        } catch (MalformedURLException e) {
+            return false;
+        }
     }
 
 }

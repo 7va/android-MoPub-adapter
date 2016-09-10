@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dispply MoPub Adapter</string>
+    <string name="app_name">HyperADx MoPub Adapter</string>
 
     <!-- Update with your Mopub Ad Unit Ids -->
     <string name="mopub_native_ad_unit_id">3530141cfcae4c1cbda6f608fca8633d</string>
