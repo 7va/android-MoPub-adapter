@@ -1,6 +1,6 @@
 package com.mopub.nativeads;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -9,7 +9,6 @@ import android.view.View;
 import com.hyperadx.lib.sdk.nativeads.Ad;
 import com.hyperadx.lib.sdk.nativeads.AdListener;
 import com.hyperadx.lib.sdk.nativeads.HADNativeAd;
-import com.mopub.mobileads.MoPubErrorCode;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -32,7 +31,8 @@ public class HyperadxNativeMopub extends CustomEventNative {
     com.hyperadx.lib.sdk.nativeads.HADNativeAd nativeAd;
 
     @Override
-    protected void loadNativeAd(final @NonNull Activity activity, final @NonNull CustomEventNativeListener customEventNativeListener, @NonNull Map<String, Object> localExtras, @NonNull Map<String, String> serverExtras) {
+    protected void loadNativeAd(@NonNull final Context context, @NonNull final CustomEventNativeListener customEventNativeListener, @NonNull Map<String, Object> localExtras, @NonNull Map<String, String> serverExtras) {
+
 
         final String placement;
         if ((serverExtras != null) && serverExtras.containsKey(PLACEMENT_KEY)) {
@@ -42,7 +42,7 @@ public class HyperadxNativeMopub extends CustomEventNative {
             return;
         }
 
-        nativeAd = new com.hyperadx.lib.sdk.nativeads.HADNativeAd(activity, placement); //Native AD constructor
+        nativeAd = new com.hyperadx.lib.sdk.nativeads.HADNativeAd(context, placement); //Native AD constructor
         nativeAd.setContent("title,icon,description");
 
         nativeAd.setAdListener(new AdListener() { // Add Listeners
@@ -62,10 +62,10 @@ public class HyperadxNativeMopub extends CustomEventNative {
                     imageUrls.add(ad.getIcon_url());
 
 
-                preCacheImages(activity, imageUrls, new NativeImageHelper.ImageListener() {
+                preCacheImages(context, imageUrls, new NativeImageHelper.ImageListener() {
                     @Override
                     public void onImagesCached() {
-                        customEventNativeListener.onNativeAdLoaded(new HyperadxNativeAd(ad, nativeAd, activity));
+                        customEventNativeListener.onNativeAdLoaded(new HyperadxNativeAd(ad, nativeAd, context));
                     }
 
                     @Override
@@ -100,15 +100,15 @@ public class HyperadxNativeMopub extends CustomEventNative {
         final com.hyperadx.lib.sdk.nativeads.HADNativeAd nativeAd;
         final ImpressionTracker impressionTracker;
         final NativeClickHandler nativeClickHandler;
-        final Activity activity;
+        final Context context;
 
-        public HyperadxNativeAd(@NonNull Ad customModel, HADNativeAd nativeAd, Activity activity) {
+        public HyperadxNativeAd(@NonNull Ad customModel, HADNativeAd nativeAd, Context context) {
 
             hadModel = customModel;
             this.nativeAd = nativeAd;
-            this.activity = activity;
-            impressionTracker = new ImpressionTracker(activity);
-            nativeClickHandler = new NativeClickHandler(activity);
+            this.context = context;
+            impressionTracker = new ImpressionTracker(context);
+            nativeClickHandler = new NativeClickHandler(context);
 
             setIconImageUrl(hadModel.getIcon_url());
             setMainImageUrl(hadModel.getImage_url());
@@ -153,7 +153,7 @@ public class HyperadxNativeMopub extends CustomEventNative {
             String userAgent;
 
             public LoadUrlTask() {
-                userAgent = com.hyperadx.lib.sdk.Util.getDefaultUserAgentString(activity);
+                userAgent = com.hyperadx.lib.sdk.Util.getDefaultUserAgentString(context);
             }
 
             @Override
