@@ -115,6 +115,7 @@ public class HyperadxNativeMopub extends CustomEventNative {
 
             setTitle(hadModel.getTitle());
             setText(hadModel.getDescription());
+            setCallToAction(hadModel.getCta());
 
             setClickDestinationUrl(hadModel.getClickUrl());
 
