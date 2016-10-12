@@ -299,29 +299,39 @@ Create package "com.mopub.mobileads" in your project and put this class in there
 HyperadxInterstitialMopub.java:
 
 package com.mopub.mobileads;
+
 import android.content.Context;
 import android.util.Log;
+
 import com.hyperadx.lib.sdk.interstitialads.HADInterstitialAd;
 import com.hyperadx.lib.sdk.interstitialads.InterstitialAdListener;
+
 import java.util.Map;
 
+
 public class HyperadxInterstitialMopub extends CustomEventInterstitial {
+
     private static final String PLACEMENT_KEY = "PLACEMENT";
+
     private HADInterstitialAd interstitialAd;
     private com.hyperadx.lib.sdk.interstitialads.Ad iAd = null;
+
     CustomEventInterstitialListener customEventInterstitialListener;
+
 
     @Override
     protected void loadInterstitial(final Context context, final CustomEventInterstitialListener customEventInterstitialListener, Map<String, Object> localExtras, Map<String, String> serverExtras) {
+
         final String placement;
-        final String appId;
+
         if (serverExtras != null && serverExtras.containsKey(PLACEMENT_KEY)) {
             placement = serverExtras.get(PLACEMENT_KEY);
 
- } else {
+        } else {
             customEventInterstitialListener.onInterstitialFailed(MoPubErrorCode.ADAPTER_CONFIGURATION_ERROR);
             return;
         }
+
 
         interstitialAd = new HADInterstitialAd(context, placement); //Interstitial AD constructor
         interstitialAd.setAdListener(new InterstitialAdListener() { // Set Listener
@@ -330,12 +340,14 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
                 iAd = ad;
                 //   Toast.makeText(context, "Interstitial Ad loaded", Toast.LENGTH_SHORT).show();
                 customEventInterstitialListener.onInterstitialLoaded();
+
             }
 
             @Override
             public void onError(com.hyperadx.lib.sdk.interstitialads.Ad Ad, String error) { // Called when load is fail
                 //   Toast.makeText(context, "Interstitial Ad failed to load with error: " + error, Toast.LENGTH_SHORT).show();
                 customEventInterstitialListener.onInterstitialFailed(MoPubErrorCode.UNSPECIFIED);
+            }
 
             @Override
             public void onInterstitialDisplayed() { // Called when Ad was impressed
@@ -347,6 +359,7 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
             public void onInterstitialDismissed(com.hyperadx.lib.sdk.interstitialads.Ad ad) { // Called when Ad was dissnissed by user
                 //   Toast.makeText(context, "Interstitial Ad Dismissed", Toast.LENGTH_SHORT).show();
                 customEventInterstitialListener.onInterstitialDismissed();
+            }
 
             @Override
             public void onAdClicked() { // Called when user click on AD
@@ -356,7 +369,12 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
         });
 
         this.customEventInterstitialListener = customEventInterstitialListener;
+
         interstitialAd.loadAd(); // Call to load AD
+
+
+    }
+
 
     @Override
     protected void showInterstitial() {
@@ -368,8 +386,12 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
 
     @Override
     protected void onInvalidate() {
+
     }
+
+
 }
+
 ```
 
 > This is your adapter. Now you can use Mopub as usual.

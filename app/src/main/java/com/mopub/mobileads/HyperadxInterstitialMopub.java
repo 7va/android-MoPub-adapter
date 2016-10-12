@@ -5,16 +5,8 @@ import android.util.Log;
 
 import com.hyperadx.lib.sdk.interstitialads.HADInterstitialAd;
 import com.hyperadx.lib.sdk.interstitialads.InterstitialAdListener;
-import com.mopub.nativeads.NativeErrorCode;
-import com.mopub.nativeads.NativeImageHelper;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-
-import static com.mopub.nativeads.NativeImageHelper.preCacheImages;
 
 
 public class HyperadxInterstitialMopub extends CustomEventInterstitial {
@@ -47,7 +39,7 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
             public void onAdLoaded(com.hyperadx.lib.sdk.interstitialads.Ad ad) { // Called when AD is Loaded
                 iAd = ad;
                 //   Toast.makeText(context, "Interstitial Ad loaded", Toast.LENGTH_SHORT).show();
-                    customEventInterstitialListener.onInterstitialLoaded();
+                customEventInterstitialListener.onInterstitialLoaded();
 
             }
 
@@ -82,7 +74,6 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
 
 
     }
-
 
 
     @Override
