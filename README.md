@@ -33,6 +33,7 @@ Then select Custom Native Network. Complete the fields accordingly to the Ad Uni
 
 **You can use the test placement "5b3QbMRQ"**
 
+
 > Add adapter in your project. Create package "com.mopub.nativeads" in your project and put this class in there:
 
 ```java
