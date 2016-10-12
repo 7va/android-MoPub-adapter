@@ -1,8 +1,17 @@
 
 ![HyperADx Logo](http://d2n7xvwjxl8766.cloudfront.net/assets/site/logo-e04518160888e1f8b3795f0ce01e1909.png) 
-&& 
+ 
 ![MoPub Logo](https://5018-presscdn-27-91-pagely.netdna-ssl.com/wp-content/themes/mopub/img/logo.png)
 
+
+##Contents
+
+* [Introduction](#introduction)
+* [Native](#native)
+* [Interstitial](#interstitial)
+
+
+# Introduction
 
 * [Download](https://github.com/hyperads/android-MoPub-adapter/releases) and extract the Mopub adapter if needed.
 
