@@ -16,7 +16,7 @@ Setup Mopub Dashboard
 
 * Create an "Hyperadx" Network in Mopub's dashboard and connect it to your Ad Units.
 
-<img src="/docs/images/1.png" title="sample" width="500" height="300" />
+<img src="/docs/images/1.png" title="sample" width="500" height="250" />
 
 * In Mopub's dashboard select Networks > Add New network
 
@@ -26,10 +26,13 @@ Then select Custom Native Network. Complete the fields accordingly to the Ad Uni
 
 ### Native
 
+Complete the fields accordingly to the Ad Unit that you want to use
+
+<img src="/docs/images/3.png" title="sample" width="500" height="300" />
+
 * Custom Event Class: `com.mopub.nativeads.HyperadxNativeMopub`
 * Custom Event Class Data: `{"PLACEMENT":"<YOUR PLACEMENT>"}`
 
-<img src="/docs/images/3.png" title="sample" width="500" height="300" />
 
 **You can use the test placement "5b3QbMRQ"**
 
@@ -198,6 +201,10 @@ public class HyperadxNativeMopub extends CustomEventNative {
 
 
 ### Interstitial
+
+Complete the fields accordingly to the Ad Unit that you want to use
+
+<img src="/docs/images/4.png" title="sample" width="500" height="300" />
 
 Custom Event Class: `com.mopub.mobileads.HyperadxInterstitialMopub`
 
