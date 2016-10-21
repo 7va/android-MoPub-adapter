@@ -46,7 +46,7 @@ Complete the fields accordingly to the Ad Unit that you want to use
 **You can use the test placement "5b3QbMRQ"**
 
 
-> Add adapter in your project. Create package "com.mopub.nativeads" in your project and put this class in there:
+Add adapter in your project. Create package "com.mopub.nativeads" in your project and put this class in there:
 
 ```java
 HyperadxNativeMopub.java:
@@ -301,7 +301,7 @@ Custom Event Class Data: `{"PLACEMENT":"<YOUR PLACEMENT>"}`
 
 **You can use the test placement `5b3QbMRQ`**
 
-> Add adapter in your project
+Add adapter in your project
 Create package "com.mopub.mobileads" in your project and put this class in there:
 
 ```java
@@ -403,4 +403,4 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
 
 ```
 
-> This is your adapter. Now you can use Mopub as usual.
+This is your adapter. Now you can use Mopub as usual.
