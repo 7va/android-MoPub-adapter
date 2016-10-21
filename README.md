@@ -1,5 +1,5 @@
 
-![HyperADx Logo](http://d2n7xvwjxl8766.cloudfront.net/assets/site/logo-e04518160888e1f8b3795f0ce01e1909.png) 
+![HyperADX Logo](http://d2n7xvwjxl8766.cloudfront.net/assets/site/logo-e04518160888e1f8b3795f0ce01e1909.png) 
  
 ![MoPub Logo](https://5018-presscdn-27-91-pagely.netdna-ssl.com/wp-content/themes/mopub/img/logo.png)
 
@@ -15,15 +15,15 @@
 
 * [Download](https://github.com/hyperads/android-MoPub-adapter/releases) and extract the Mopub adapter if needed.
 
-You can use Hyperadx as a Network in Mopub's Mediation platform.
+You can use HyperADX as a Network in Mopub's Mediation platform.
 Setup SDKs
 
 * [Integrate](https://github.com/mopub/mopub-android-sdk/wiki/Getting-Started) with Mopub SDK
-* Install Hyperadx SDK
+* Install HyperADX SDK
 
 Setup Mopub Dashboard
 
-* Create an "Hyperadx" Network in Mopub's dashboard and connect it to your Ad Units.
+* Create an "HyperADX" Network in Mopub's dashboard and connect it to your Ad Units.
 
 <img src="/docs/images/1.png" title="sample" width="500" height="240" />
 
@@ -39,7 +39,7 @@ Complete the fields accordingly to the Ad Unit that you want to use
 
 <img src="/docs/images/3.png" title="sample" width="500" height="300" />
 
-* Custom Event Class: `com.mopub.nativeads.HyperadxNativeMopub`
+* Custom Event Class: `com.mopub.nativeads.HyperADXNativeMopub`
 * Custom Event Class Data: `{"PLACEMENT":"<YOUR PLACEMENT>"}`
 
 
@@ -49,7 +49,7 @@ Complete the fields accordingly to the Ad Unit that you want to use
 Add adapter in your project. Create package "com.mopub.nativeads" in your project and put this class in there:
 
 ```java
-HyperadxNativeMopub.java:
+HyperADXNativeMopub.java:
 
 package com.mopub.nativeads;
 
@@ -76,7 +76,7 @@ import java.util.Set;
 import static com.mopub.nativeads.NativeImageHelper.preCacheImages;
 
 
-public class HyperadxNativeMopub extends CustomEventNative {
+public class HyperADXNativeMopub extends CustomEventNative {
 
     private static final String PLACEMENT_KEY = "PLACEMENT";
 
@@ -103,7 +103,7 @@ public class HyperadxNativeMopub extends CustomEventNative {
             @Override
             public void onAdLoaded(final Ad ad) {
 
-                //   customEventNativeListener.onNativeAdLoaded(new HyperadxNativeAd(ad, nativeAd, activity));
+                //   customEventNativeListener.onNativeAdLoaded(new HyperADXNativeAd(ad, nativeAd, activity));
 
                 List<String> imageUrls = new ArrayList<String>();
 
@@ -118,7 +118,7 @@ public class HyperadxNativeMopub extends CustomEventNative {
                 preCacheImages(context, imageUrls, new NativeImageHelper.ImageListener() {
                     @Override
                     public void onImagesCached() {
-                        customEventNativeListener.onNativeAdLoaded(new HyperadxNativeAd(ad, nativeAd, context));
+                        customEventNativeListener.onNativeAdLoaded(new HyperADXNativeAd(ad, nativeAd, context));
                     }
 
                     @Override
@@ -147,7 +147,7 @@ public class HyperadxNativeMopub extends CustomEventNative {
     }
 
 
-    class HyperadxNativeAd extends StaticNativeAd {
+    class HyperADXNativeAd extends StaticNativeAd {
 
         final Ad hadModel;
         final com.hyperadx.lib.sdk.nativeads.HADNativeAd nativeAd;
@@ -155,7 +155,7 @@ public class HyperadxNativeMopub extends CustomEventNative {
         final NativeClickHandler nativeClickHandler;
         final Context context;
 
-        public HyperadxNativeAd(@NonNull Ad customModel, HADNativeAd nativeAd, Context context) {
+        public HyperADXNativeAd(@NonNull Ad customModel, HADNativeAd nativeAd, Context context) {
 
             hadModel = customModel;
             this.nativeAd = nativeAd;
@@ -305,7 +305,7 @@ Add adapter in your project
 Create package "com.mopub.mobileads" in your project and put this class in there:
 
 ```java
-HyperadxInterstitialMopub.java:
+HyperADXInterstitialMopub.java:
 
 package com.mopub.mobileads;
 
@@ -318,7 +318,7 @@ import com.hyperadx.lib.sdk.interstitialads.InterstitialAdListener;
 import java.util.Map;
 
 
-public class HyperadxInterstitialMopub extends CustomEventInterstitial {
+public class HyperADXInterstitialMopub extends CustomEventInterstitial {
 
     private static final String PLACEMENT_KEY = "PLACEMENT";
 
