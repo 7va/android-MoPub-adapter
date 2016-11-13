@@ -7,21 +7,25 @@
 ##Contents
 
 * [Introduction](#introduction)
-* [Native](#native)
-* [Interstitial](#interstitial)
+* [Setup Mopub Dashboard](#Setup Mopub Dashboard)
+* [Native apps](#Native apps)
+* [Interstitial apps](#Interstitial apps)
 
 
-# Introduction
+### Introduction
 
-* [Download](https://github.com/hyperads/android-MoPub-adapter/releases) and extract the Mopub adapter if needed.
+You can configure MoPub adapter to serve Hyperadx native, and interstitial ads through MoPub's mediation solution.
 
-You can use HyperADX as a Network in Mopub's Mediation platform.
+Please take the following steps to implement MoPub adapter: 
+
+* [Download](https://github.com/hyperads/android-MoPub-adapter/releases) and extract the Mopub adapter.
+
 Setup SDKs
 
 * [Integrate](https://github.com/mopub/mopub-android-sdk/wiki/Getting-Started) with Mopub SDK
 * Install HyperADX SDK
 
-Setup Mopub Dashboard
+### Setup Mopub Dashboard
 
 * Create an "HyperADX" Network in Mopub's dashboard and connect it to your Ad Units.
 
@@ -33,7 +37,7 @@ Setup Mopub Dashboard
 
 Then select Custom Native Network.
 
-### Native
+### Native apps
 
 Complete the fields accordingly to the Ad Unit that you want to use
 
@@ -289,7 +293,7 @@ public class HyperADXNativeMopub extends CustomEventNative {
 ```
 
 
-### Interstitial
+### Interstitial apps
 
 Complete the fields accordingly to the Ad Unit that you want to use
 
