@@ -12,7 +12,7 @@ Please take the following steps to implement MoPub adapter:
 Setup SDK
 
 * [Integrate](https://github.com/mopub/mopub-android-sdk/wiki/Getting-Started) with Mopub SDK
-* Install HyperADX SDK
+* [Install HyperADX SDK] (https://github.com/hyperads/android-sdk#set-up-the-sdk)
 
 ## Setup Mopub Dashboard
 
