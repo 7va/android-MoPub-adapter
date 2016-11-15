@@ -3,39 +3,34 @@
  
 ![MoPub Logo](https://5018-presscdn-27-91-pagely.netdna-ssl.com/wp-content/themes/mopub/img/logo.png)
 
+You can configure MoPub adapter to serve Hyperadx native and interstitial ads through MoPub's mediation solution. 
 
-##Contents
-
-* [Introduction](#introduction)
-* [Native](#native)
-* [Interstitial](#interstitial)
-
-
-# Introduction
+Please take the following steps to implement MoPub adapter:
 
 * [Download](https://github.com/hyperads/android-MoPub-adapter/releases) and extract the Mopub adapter if needed.
 
-You can use HyperADX as a Network in Mopub's Mediation platform.
-Setup SDKs
+Setup SDK
 
 * [Integrate](https://github.com/mopub/mopub-android-sdk/wiki/Getting-Started) with Mopub SDK
 * Install HyperADX SDK
 
-Setup Mopub Dashboard
+## Setup Mopub Dashboard
 
-* Create an "HyperADX" Network in Mopub's dashboard and connect it to your Ad Units.
+* Create a new HyperADX Network in Mopub's dashboard and connect it to your Ad Units.
+
 
 <img src="/docs/images/1.png" title="sample" width="500" height="240" />
 
-* In Mopub's dashboard select Networks > Add New network
+* In Mopub's dashboard select Networks > Add a New network.
+
 
 <img src="/docs/images/2.png" title="sample" width="500" height="460" />
 
-Then select Custom Native Network.
+* Then select Custom Native Network.
 
-### Native
+### Native ads
 
-Complete the fields accordingly to the Ad Unit that you want to use
+* Fill in the fields in compliance with the Ad Unit that you want to use:
 
 <img src="/docs/images/3.png" title="sample" width="500" height="300" />
 
@@ -46,7 +41,7 @@ Complete the fields accordingly to the Ad Unit that you want to use
 **You can use the test placement "5b3QbMRQ"**
 
 
-Add adapter in your project. Create package "com.mopub.nativeads" in your project and put this class in there:
+* Add adapter in your project. Create package "com.mopub.nativeads" in your project and put this class in there:
 
 ```java
 HyperADXNativeMopub.java:
@@ -289,9 +284,9 @@ public class HyperADXNativeMopub extends CustomEventNative {
 ```
 
 
-### Interstitial
+### Interstitial ads
 
-Complete the fields accordingly to the Ad Unit that you want to use
+* Complete the fields in compliance with the Ad Unit that you want to use
 
 <img src="/docs/images/4.png" title="sample" width="500" height="300" />
 
@@ -301,8 +296,7 @@ Custom Event Class Data: `{"PLACEMENT":"<YOUR PLACEMENT>"}`
 
 **You can use the test placement `5b3QbMRQ`**
 
-Add adapter in your project
-Create package "com.mopub.mobileads" in your project and put this class in there:
+* Add adapter in your project. Create package "com.mopub.mobileads" in your project and put this class in there:
 
 ```java
 HyperADXInterstitialMopub.java:
