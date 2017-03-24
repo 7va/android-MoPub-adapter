@@ -2,6 +2,7 @@ package com.mopub.mobileads;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.hyperadx.hypernetwork.ads.Ad;
 import com.hyperadx.hypernetwork.ads.AdError;
@@ -101,6 +102,13 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
                 //   Toast.makeText(context, "Tracked Interstitial Ad click", Toast.LENGTH_SHORT).show();
                 customEventInterstitialListener.onInterstitialClicked();
             }
+
+            @Override
+            public void onVideoCompleted(Ad ad) {
+              //  Toast.makeText(context, "Interstitial Video Completed", Toast.LENGTH_SHORT).show();
+
+            }
+
         });
 
         this.customEventInterstitialListener = customEventInterstitialListener;
