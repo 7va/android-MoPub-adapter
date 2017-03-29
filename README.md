@@ -7,7 +7,7 @@
 
 <img src="/docs/images/hyper.png" title="hyper" />
 
-<img src="/docs/images/mopub.jpg" title="mopub"  width="187" height="55" />
+<img src="/docs/images/mopub.jpg" title="mopub"  width="187" height="75" />
 
 You can configure MoPub adapter to serve Hyperadx native and interstitial ads through MoPub's mediation solution. 
 
