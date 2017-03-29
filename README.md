@@ -1,7 +1,13 @@
-
+<!--- 
 ![HyperADX Logo](http://d2n7xvwjxl8766.cloudfront.net/assets/site/logo-e04518160888e1f8b3795f0ce01e1909.png) 
- 
+ -->
+<!--- 
 ![MoPub Logo](https://5018-presscdn-27-91-pagely.netdna-ssl.com/wp-content/themes/mopub/img/logo.png)
+-->
+
+<img src="/docs/images/hyper.png" title="hyper" />
+
+<img src="/docs/images/mopub.png" title="mopub" />
 
 You can configure MoPub adapter to serve Hyperadx native and interstitial ads through MoPub's mediation solution. 
 
