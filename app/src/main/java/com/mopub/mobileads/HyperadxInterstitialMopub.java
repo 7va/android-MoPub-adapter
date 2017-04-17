@@ -2,39 +2,144 @@ package com.mopub.mobileads;
 
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.hyperadx.hypernetwork.ads.Ad;
 import com.hyperadx.hypernetwork.ads.AdError;
 import com.hyperadx.hypernetwork.ads.InterstitialAd;
 import com.hyperadx.hypernetwork.ads.InterstitialAdListener;
+import com.hyperadx.hypernetwork.ads.VideoInterstitialAd;
 
+import java.util.Date;
 import java.util.Map;
 
 
 public class HyperadxInterstitialMopub extends CustomEventInterstitial {
 
-    private static final String PLACEMENT_KEY = "PLACEMENT";
+    private static final String HTML_KEY = "HTML";
+    private static final String VIDEO_KEY = "VIDEO";
 
     private InterstitialAd interstitialAd;
+    private VideoInterstitialAd videoInterstitialAd;
 
     CustomEventInterstitialListener customEventInterstitialListener;
+    private Context context;
 
 
     @Override
     protected void loadInterstitial(final Context context, final CustomEventInterstitialListener customEventInterstitialListener, Map<String, Object> localExtras, Map<String, String> serverExtras) {
 
-        final String placement;
+        this.context = context;
+        this.customEventInterstitialListener = customEventInterstitialListener;
 
-        if (serverExtras != null && serverExtras.containsKey(PLACEMENT_KEY)) {
-            placement = serverExtras.get(PLACEMENT_KEY);
+        interstitialAd = null;
+        videoInterstitialAd = null;
+
+        final String html;
+        final String video;
+
+        if (serverExtras != null && serverExtras.containsKey(HTML_KEY)) {
+            html = serverExtras.get(HTML_KEY);
 
         } else {
             customEventInterstitialListener.onInterstitialFailed(MoPubErrorCode.ADAPTER_CONFIGURATION_ERROR);
             return;
         }
 
+        if (serverExtras != null && serverExtras.containsKey(VIDEO_KEY)) {
+            video = serverExtras.get(VIDEO_KEY);
 
+        } else {
+            customEventInterstitialListener.onInterstitialFailed(MoPubErrorCode.ADAPTER_CONFIGURATION_ERROR);
+            return;
+        }
+
+        if ((new Date().getTime() & 1) == 0) {
+            getHtml(html);
+        } else {
+            getVideo(video);
+        }
+
+
+    }
+
+    private void getVideo(String placement) {
+        if (videoInterstitialAd != null) {
+            videoInterstitialAd.destroy();
+            videoInterstitialAd = null;
+        }
+
+        videoInterstitialAd = new VideoInterstitialAd(context, placement);
+
+        videoInterstitialAd.setAdListener(new InterstitialAdListener() {
+            @Override
+            public void onInterstitialDisplayed(Ad ad) {
+                customEventInterstitialListener.onInterstitialShown();
+            }
+
+            @Override
+            public void onInterstitialDismissed(Ad ad) {
+                customEventInterstitialListener.onInterstitialDismissed();
+            }
+
+            @Override
+            public void onVideoCompleted(Ad ad) {
+
+            }
+
+            @Override
+            public void onError(Ad ad, AdError adError) {
+                if (ad != videoInterstitialAd) return;
+
+                MoPubErrorCode moPubErrorCode = MoPubErrorCode.UNSPECIFIED;
+
+                switch (adError.getErrorCode()) {
+                    case AdError.INTERNAL_ERROR_CODE:
+                        moPubErrorCode = MoPubErrorCode.INTERNAL_ERROR;
+                        break;
+
+                    case AdError.LOAD_TOO_FREQUENTLY_ERROR_CODE:
+                        moPubErrorCode = MoPubErrorCode.SERVER_ERROR;
+                        break;
+
+                    case AdError.NETWORK_ERROR_CODE:
+                        moPubErrorCode = MoPubErrorCode.NETWORK_TIMEOUT;
+                        break;
+
+                    case AdError.NO_FILL_ERROR_CODE:
+                        moPubErrorCode = MoPubErrorCode.NO_FILL;
+                        break;
+
+                    case AdError.SERVER_ERROR_CODE:
+                        moPubErrorCode = MoPubErrorCode.SERVER_ERROR;
+                        break;
+
+                    default:
+                        moPubErrorCode = MoPubErrorCode.UNSPECIFIED;
+                        break;
+                }
+
+                customEventInterstitialListener.onInterstitialFailed(moPubErrorCode);
+
+            }
+
+            @Override
+            public void onAdLoaded(Ad ad) {
+                if (ad == videoInterstitialAd)
+                    customEventInterstitialListener.onInterstitialLoaded();
+
+            }
+
+            @Override
+            public void onAdClicked(Ad ad) {
+                if (ad == videoInterstitialAd)
+                    customEventInterstitialListener.onInterstitialClicked();
+            }
+        });
+
+        videoInterstitialAd.loadAd();
+    }
+
+    private void getHtml(String placement) {
         interstitialAd = new InterstitialAd(context, placement); //Interstitial AD constructor
         interstitialAd.setAdListener(new InterstitialAdListener() { // Set Listener
             @Override
@@ -105,7 +210,7 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
 
             @Override
             public void onVideoCompleted(Ad ad) {
-              //  Toast.makeText(context, "Interstitial Video Completed", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(context, "Interstitial Video Completed", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -114,20 +219,17 @@ public class HyperadxInterstitialMopub extends CustomEventInterstitial {
         this.customEventInterstitialListener = customEventInterstitialListener;
 
         interstitialAd.loadAd(); // Call to load AD
-
-
     }
 
 
     @Override
     protected void showInterstitial() {
-        if (interstitialAd == null || !interstitialAd.isAdLoaded()) {
-            // Ad not ready to show.
-            Log.e("HADInterstitialMopub", "The Interstitial AD not ready yet. Try again!");
-        } else {
-            // Ad was loaded, show it!
+        if (interstitialAd != null && interstitialAd.isAdLoaded()) {
             interstitialAd.show();
-
+        } else if (videoInterstitialAd != null && videoInterstitialAd.isAdLoaded()) {
+            videoInterstitialAd.show();
+        } else {
+            Log.e("HADInterstitialMopub", "The Interstitial AD not ready yet. Try again!");
         }
 
     }
