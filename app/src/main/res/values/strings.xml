@@ -4,4 +4,6 @@
     <!-- Update with your Mopub Ad Unit Ids -->
     <string name="mopub_native_ad_unit_id">3530141cfcae4c1cbda6f608fca8633d</string>
     <string name="mopub_interstitial_ad_unit_id">4cf7bee0e24a4ef5b0709864bb0edc00</string>
+    <string name="mopub_rewarded_ad_unit_id">611cc510c69b4fb2bb8e04650255e1e7</string>
+
 </resources>
