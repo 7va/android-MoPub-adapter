@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements MoPubInterstitial
 
         MoPubRewardedVideos.loadRewardedVideo(getString(R.string.mopub_rewarded_ad_unit_id),
                 new MoPubRewardedVideoManager.RequestParameters("", null,
-                        ""));
+                        "sample_app_customer_id"));
 
     }
 
