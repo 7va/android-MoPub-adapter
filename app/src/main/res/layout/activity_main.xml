@@ -26,12 +26,12 @@
         android:layout_below="@+id/btNativeAd"
         android:layout_centerHorizontal="true" />
 
-    <Button
-        android:id="@+id/btRewardedAd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="showRewardedAd"
-        android:text="Show Rewarded Ad"
-        android:layout_below="@+id/btInterstitialAd"
-        android:layout_centerHorizontal="true" />
+    <!--<Button-->
+        <!--android:id="@+id/btRewardedAd"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:onClick="showRewardedAd"-->
+        <!--android:text="Show Rewarded Ad"-->
+        <!--android:layout_below="@+id/btInterstitialAd"-->
+        <!--android:layout_centerHorizontal="true" />-->
 </RelativeLayout>
